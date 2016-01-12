@@ -157,6 +157,11 @@ class VMwareHost(object):
             #
             # args is a tuple, selecting the first tuple
             ssl_verify_fault = add_task_error.args[0]
+            fault = add_task_error.args[0]
+            if type(fault) is vim.fault.DuplicateName:
+               return False, fault.object
+            ssl_verify_fault = add_task_error.args[0]
+            host_connect_spec.sslThumbprint = ssl_verify_fault.thumbprint
             host_connect_spec.sslThumbprint = ssl_verify_fault.thumbprint
 
         task = self.cluster.AddHost_Task(host_connect_spec, as_connected, resource_pool, esxi_license)
