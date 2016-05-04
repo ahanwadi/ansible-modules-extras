@@ -90,6 +90,7 @@ def create_datacenter(context, module):
     folder = context.rootFolder
 
     try:
+        changed = False
         datacenter = get_datacenter(context, module)
         if not datacenter:
             changed = True
@@ -113,6 +114,7 @@ def destroy_datacenter(context, module):
     result = None
 
     try:
+        changed = False
         datacenter = get_datacenter(context, module)
         if datacenter:
             changed = True
